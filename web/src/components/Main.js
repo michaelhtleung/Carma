@@ -1,6 +1,7 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Navbar from './Navbar';
 import Profile from './Profile';
+import Score from './Score';
 import TestLayout from './TestLayout';
 
 const Main = () => {
@@ -11,11 +12,11 @@ const Main = () => {
         <Route path={`${url}/profile`}>
           <Profile/>
         </Route>
-        <Route path={`${url}/test`}>
-          <TestLayout/>
-        </Route>
         <Route path={`${url}/score`}>
-          Score
+          <Score/>
+        </Route>
+        <Route>
+          <TestLayout/>
         </Route>
       </Switch>
       <Navbar/>
