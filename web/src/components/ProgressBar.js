@@ -5,10 +5,12 @@ const Background = styled.div`
   border-radius: 10px;
   height: 13px;
   width: 100%;
+  margin-bottom: 15px;
 `;
 
 const Bar = styled.div`
   height: 13px;
+  transition: width ease-out 1s;
   background: #4D5DDD;
   border-radius: 10px;
   width: ${props => props.widthPct}%;

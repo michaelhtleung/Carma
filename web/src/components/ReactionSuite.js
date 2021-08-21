@@ -16,14 +16,15 @@ const Header = styled.span`
 
 const ReactionSuite = ({ numTests, onFinish }) => {
   const [stage, setStage] = useState(1);
+  const stageRef = useRef(stage);
+  stageRef.current = stage;
   const data = useRef(0);
   const limit = 5000;
 
   const addData = time => {
-    console.log(time);
     data.current += time;
-    if (stage < numTests) {
-      setStage(stage + 1);
+    if (stageRef.current < numTests) {
+      setStage(stageRef.current + 1);
     } else {
       onFinish(data.current);
     }
@@ -31,7 +32,6 @@ const ReactionSuite = ({ numTests, onFinish }) => {
 
   return (
     <>
-      <Header>Stage {stage} of {numTests}</Header>
       <ReactionTest isFinal={stage === numTests} onComplete={addData} limit={limit}/>
     </>
   );
