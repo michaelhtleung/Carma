@@ -1,16 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Button from "./ButtonOrange";
+import Container from "./Container";
+import Header from "./Header";
+import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
-
-const Header = styled.span`
-  font-family: Heebo, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 35px;
-  color: #000000;
-`;
 
 const Quit = styled.span`
   font-family: Heebo, sans-serif;
@@ -25,17 +20,9 @@ const Quit = styled.span`
   display: flex;
 `;
 
-const Container = styled.div`
-  padding: 22px;
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-`;
-
 const TestLayout = () => {
   const totalStages = 3;
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(0);
 
   let body;
   switch (stage) {
@@ -52,10 +39,19 @@ const TestLayout = () => {
       break;
   }
 
-  return (
+  return stage === 0 ? (
+    <Home>
+      <Button style={{marginTop: "48px", width: "287px"}} onClick={() => setStage(1)}>Start Sobriety Test</Button>
+    </Home>
+  ) : (
     <Container>
-      <Header>Insert Name</Header>
-      <Quit style={{visibility: stage === 3 ? 'hidden' : 'visible'}}><span style={{cursor: 'pointer'}}>Quit</span></Quit>
+      <Header>carma</Header>
+      <Quit 
+        style={{visibility: stage === 3 ? 'hidden' : 'visible'}}
+        onClick={() => setStage(0)}
+      >
+        <span style={{cursor: 'pointer'}}>Quit</span>
+      </Quit>
       <ProgressBar currentStage={stage} totalStages={totalStages}/>
       {body}
     </Container>
