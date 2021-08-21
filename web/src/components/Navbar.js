@@ -38,7 +38,8 @@ const Navbar = () => {
             </Icon>
         </NavLink>
         <NavLink 
-          to="/app/test"
+          to="/app"
+          exact
           activeStyle={{
             fill: "#F94E4E",
           }}  

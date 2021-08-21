@@ -11,11 +11,11 @@ const Main = () => {
         <Route path={`${url}/profile`}>
           <Profile/>
         </Route>
-        <Route path={`${url}/test`}>
-          <TestLayout/>
-        </Route>
         <Route path={`${url}/score`}>
           Score
+        </Route>
+        <Route>
+          <TestLayout/>
         </Route>
       </Switch>
       <Navbar/>

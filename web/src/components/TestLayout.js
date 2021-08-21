@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "./ButtonOrange";
+import BlueButton from "./Button";
 import Container from "./Container";
 import Header from "./Header";
 import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
+import Results from "./Results";
 
 const Quit = styled.span`
   font-family: Heebo, sans-serif;
@@ -24,16 +26,26 @@ const TestLayout = () => {
   const totalStages = 3;
   const [stage, setStage] = useState(0);
 
+  const passed = useRef(false);
+
   let body;
   switch (stage) {
     case 1:
-      body = <ReactionSuite numTests={3} onFinish={() => setStage(2)}/>;
+      body = (
+        <ReactionSuite 
+          numTests={3} 
+          onFinish={tot => {
+            passed.current = tot < 6000;
+            setStage(2);
+          }}
+        />
+      );
       break;
     case 2:
-      // set body to picture test
+      body = <BlueButton onClick={() => setStage(3)}>Next</BlueButton>;
       break;
     case 3:
-      // set body to finishing screen
+      body = <Results isSuccessful={passed.current}/>;
       break;
     default:
       break;
