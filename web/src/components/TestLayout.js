@@ -55,7 +55,7 @@ const TestLayout = () => {
   return (
     <Container>
       <Header>Insert Name</Header>
-      <Quit><span style={{cursor: 'pointer'}}>Quit</span></Quit>
+      <Quit style={{visibility: stage === 3 ? 'hidden' : 'visible'}}><span style={{cursor: 'pointer'}}>Quit</span></Quit>
       <ProgressBar currentStage={stage} totalStages={totalStages}/>
       {body}
     </Container>

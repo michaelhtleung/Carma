@@ -1,10 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import morningJog from '../images/morning-jog.png';
+import Button from "./Button";
+
+const Message = styled.span`
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 130%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #000000;
+  margin-top: 37px;
+  margin-bottom: 67px;
+  padding: 5px;
+`;
 
 const Dot = styled.span`
   position: absolute;
-  top: ${props => Math.max(22, props.position.top - props.radius - 22)}px;
-  left: ${props => Math.max(22, props.position.left - props.radius - 22)}px;
+  top: ${props => props.position.top}px;
+  left: ${props => props.position.left}px;
   cursor: pointer;
   height: ${props => props.radius}px;
   width: ${props => props.radius}px;
@@ -13,7 +29,7 @@ const Dot = styled.span`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-const Container = styled.div`
+const GameContainer = styled.div`
   flex: 1;
   background: #E5E5E5;
 `
@@ -28,19 +44,21 @@ const ReactionTest = ({ onComplete, limit, isFinal }) => {
   const box = useRef(null);
 
   useEffect(() => {
-    setSize({
-      height: box.current.clientHeight,
-      width: box.current.clientWidth,
-      offsetTop: box.current.offsetTop,
-      offsetLeft: box.current.offsetLeft,
-    })
-  }, []);
+    if (box.current) {
+      setSize({
+        height: box.current.clientHeight,
+        width: box.current.clientWidth,
+        offsetTop: box.current.offsetTop,
+        offsetLeft: box.current.offsetLeft,
+      });
+    }
+  }, [isReady]);
 
   const handleComplete = val => {
-    onComplete(val);
-    setIsUp(false);
     clearTimeout(timeout.current);
+    onComplete(val);
     if (!isFinal) {
+      setIsUp(false);
       handleReady();
     }
   }
@@ -56,24 +74,27 @@ const ReactionTest = ({ onComplete, limit, isFinal }) => {
     }, ((Math.random() * 3.5) + 0.5) * 1000);
   }
 
-  return (
-      <Container ref={box} onMouseDown={isReady && !isUp ? () => handleComplete(limit) : undefined}>
-        {isReady ? isUp && (
-          <Dot
-            position={{
-              top: (Math.random() * size.height) + size.offsetTop, 
-              left: (Math.random() * size.width) + size.offsetLeft
-            }}
-            radius={size.height / 12}
-            onMouseDown={() => {
-              clearTimeout(timeout.current);
-              handleComplete(Date.now() - start);
-            }}
-          />        
-          ) : (
-          <button onClick={handleReady}>Ready</button>
-        )}
-      </Container>
+  return isReady ? (
+    <GameContainer ref={box} onMouseDown={!isUp ? () => handleComplete(limit) : undefined}>
+      {isUp && (
+        <Dot
+          position={{
+            top: (Math.random() * (size.height - size.offsetTop)) + (size.offsetTop * 2) - (size.height / 12), 
+            left: (Math.random() * ((size.width - size.offsetLeft) + (size.offsetLeft) - (size.height / 12))) + size.offsetLeft
+          }}
+          radius={size.height / 12}
+          onMouseDown={() => {
+            handleComplete(Date.now() - start);
+          }}
+        />
+      )}
+    </GameContainer>
+  ) : (
+    <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <img style={{width: '100%'}} src={morningJog} alt={"jogger running in the morning"}/>
+      <Message>Complete this short reaction speed test by touching the dots that appear on the screen! A new dot will appear every 0.5 - 3 seconds.</Message>
+      <Button onClick={handleReady}>Start</Button>
+    </div>
   )
 }
 
