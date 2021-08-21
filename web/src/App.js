@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Main from './components/Main';
+import Welcome from './components/Welcome';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
             <Main/>
           </Route>
           <Route>
-            Authorization Stuff
+            <Welcome/>
           </Route>
         </Switch>
       </div>
