@@ -1,6 +1,8 @@
 import { Route, Switch, useHistory } from "react-router-dom"
 import Button from "./ButtonOrange"
 import Home from "./Home"
+import Login from "./Login";
+import Signup from "./Signup";
 
 const Welcome = () => {
   const history = useHistory();
@@ -8,10 +10,10 @@ const Welcome = () => {
   return (
     <Switch>
       <Route path="/login">
-        Login
+        <Login/>
       </Route>
       <Route path="/signup">
-        Signup
+        <Signup/>
       </Route>
       <Route>
         <Home>

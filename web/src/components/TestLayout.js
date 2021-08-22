@@ -33,7 +33,7 @@ const TestLayout = () => {
     case 1:
       body = (
         <ReactionSuite 
-          numTests={3} 
+          numTests={2} 
           onFinish={tot => {
             passed.current = tot < 6000;
             setStage(2);

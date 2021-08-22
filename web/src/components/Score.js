@@ -135,7 +135,7 @@ const Score = () => {
       <Card>
         <Badge background="#FEE1E1" fontSize="30px" textColor="#F94E4E" bold>70</Badge>
         <Text>
-          <span>Day left until policy renewal</span>
+          <span>Days left until policy renewal</span>
         </Text>
       </Card>
       <div style={{marginTop: "40px"}}>
