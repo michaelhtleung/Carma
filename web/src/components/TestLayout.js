@@ -7,6 +7,7 @@ import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
 import Results from "./Results";
+import { auth, db, firebase } from "../firebase";
 import PhotoTest from "./PhotoTest";
 import VoiceTest from "./VoiceTest";
 
@@ -28,6 +29,7 @@ const TestLayout = () => {
   const [stage, setStage] = useState(0);
 
   const passed = useRef(false);
+  const passed2 = useRef(false);
 
   let body;
   switch (stage) {
@@ -43,13 +45,22 @@ const TestLayout = () => {
       );
       break;
     case 2:
-      body = (<PhotoTest onFinish={() => setStage(3)}/>);
+      body = (<PhotoTest onFinish={(result) => {
+          console.log("result:");
+          console.log(result);
+          passed2.current = result === "sober";
+          if (passed.current && passed2.current) {
+            db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10) });
+          }
+          setStage(3);
+        }}/>);
       break;
     case 3:
       body = (<VoiceTest onFinish={() => setStage(4)}/>);
       break;
     case 4:
-      body = <Results isSuccessful={passed.current}/>;
+      body = <Results isSuccessful={passed.current && passed2.current}/>;
+      
       break;
     default:
       break;

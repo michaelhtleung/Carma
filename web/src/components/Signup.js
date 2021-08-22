@@ -1,25 +1,24 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import AuthForm from "./AuthForm";
 import Button from "./ButtonOrange";
+import faker from 'faker/locale/en_CA';
+import { auth, db } from "../firebase";
 
 const Input = styled.input`
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 170%;
-
-/* or 31px */
-letter-spacing: 0.02em;
-
-color: #7D8085;
-border: 0;
-outline: 0;
-background: transparent;
-border-bottom: 1px solid #E5E5E5;
-width: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 170%;
+  letter-spacing: 0.02em;
+  color: #7D8085;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid #E5E5E5;
+  width: 100%;
 `;
 
 const FormGroup = styled.div`
@@ -31,17 +30,14 @@ const FormGroup = styled.div`
 `;
 
 const HelpText = styled.span`
-font-family: Roboto;
-font-style: normal;
-font-weight: 600;
-font-size: 17px;
-line-height: 170%;
-
-/* or 31px */
-text-align: center;
-letter-spacing: 0.02em;
-
-color: #7D8085;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 170%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #7D8085;
 `;
 
 const Signup = () => {
@@ -53,8 +49,29 @@ const Signup = () => {
   const [confirm, setConfirm] = useState("");
   const [intact, setIntact] = useState("");
 
+  const history = useHistory();
+
   const onSubmit = () => {
-    
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        db.collection("users").doc(userCredential.user.uid).set({
+          name,
+          email,
+          profilePic: faker.image.avatar(),
+          address: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
+          model: `${faker.vehicle.color()} ${faker.vehicle.manufacturer()} ${faker.vehicle.model()}`,
+          renewalDate: faker.date.future().toISOString(), 
+          points: 0,
+          plate: "BXT 593",
+          insuranceNo: intact,
+        }).then(() => {
+          history.push("/app");
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      
   };
 
   return (
@@ -66,7 +83,7 @@ const Signup = () => {
         <Input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
       </FormGroup>
       <FormGroup>
-        <div style={{width: "100%"}}>
+        <div style={{display: "flex", flexDirection: "row", width: "100%", overflow: "hidden"}}>
           <Input value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" type={passwordVisible ? "text" : "password"}/>
           <span onClick={() => setPasswordVisible(prev => !prev)} style={{float: "right", position: 'absolute', right: "48px", cursor: "pointer"}}>
             { passwordVisible ? (
@@ -78,7 +95,7 @@ const Signup = () => {
         </div>
       </FormGroup>
       <FormGroup>
-        <div style={{width: "100%"}}>
+        <div style={{display: "flex", flexDirection: "row", width: "100%", overflow: "hidden"}}>
           <Input value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="Confirm Password" type={confirmVisible ? "text" : "password"}/>
           <span onClick={() => setConfirmVisible(prev => !prev)} style={{float: "right", position: 'absolute', right: "48px", cursor: "pointer"}}>
             { confirmVisible ? (
