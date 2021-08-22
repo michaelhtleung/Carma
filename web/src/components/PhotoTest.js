@@ -18,19 +18,26 @@ const Message = styled.span`
   padding: 5px;
 `;
 
+const RetakePhoto = styled.div`
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  color: #4D5DDD;
+`;
+
 const videoConstraints = {
   width: 332,
   height: 424,
   facingMode: "user"
 };
 
-const CameraContainer = styled.div`
-  flex" 1;
-  background: #E5E5E5;
-`;
-
-const PhotoTest = () => {
+const PhotoTest = (props) => {
+  const { onFinish } = props;
   const [isReady, setIsReady] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const [screenshot, setScreenshot] = useState('');
   const webcamRef = useRef(null);
 
@@ -41,31 +48,52 @@ const PhotoTest = () => {
   const capture = useCallback(
     () => {
       const imageSrc = webcamRef.current.getScreenshot({width: 332, height: 424});
-      console.log(imageSrc);
       setScreenshot(imageSrc);
     },
     [webcamRef]
   );
 
   useEffect(() => {
-    if (isReady) capture();
-  }, [isReady]);
-  
+    setScreenshot('');
+  }, []);
 
-  return isReady ? (
-    <>
-      <CameraContainer>
-        <Webcam
-          width={332}
-          height={424}
-          screenshotFormat="image/jpeg"
-          videoConstraints={videoConstraints}
-          ref={webcamRef}
-        />
-      </CameraContainer>
-      <Button onClick={capture}>Submit</Button>
-    </>
+  useEffect(() => {
+    if (isReady && screenshot == null) capture();
+  }, [isReady, screenshot]);
+
+  
+  const handleOnSubmit = () => {
+    setIsUpload(true);
+    onFinish();
+  }
+
+  const handleRetake = () => {
+    setScreenshot('');
+  }
+
+  return isReady ? (screenshot === '' ? (
+    <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px'}}>
+      <Webcam
+        width={332}
+        height={424}
+        screenshotFormat="image/jpeg"
+        videoConstraints={videoConstraints}
+        ref={webcamRef}
+      />
+      <div id='say-cheese-button' style={{padding: '30px'}}>
+        <Button onClick={capture}>Say cheese!</Button>
+      </div>
+    </div>
   ) : (
+    <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px'}}>
+      <img src={screenshot} />
+      <div id="submit-button" style={{padding: '30px'}}>
+        <Button onClick={handleOnSubmit}>Submit</Button>
+      </div>
+      <RetakePhoto onClick={handleRetake}>Retake Photo</RetakePhoto>
+    </div>
+  )
+  ): (
     <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <img style={{width: '100%'}} src={indianAttrie} alt={"Woman crossing hands with phone displaying her profile"}/>
       <Message>Say cheese! Submit a selfie to automatically detect sobriety.</Message>
