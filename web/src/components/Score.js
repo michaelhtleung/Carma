@@ -76,8 +76,8 @@ const Score = () => {
       <Card style={{boxShadow: "none", padding: 0, background: "transparent"}}>
         <div style={{position: "relative"}}>
           <Svg width="302" height="181" viewBox="0 0 302 181" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0)">
-            <g clip-path="url(#clip1)">
+            <g clipPath="url(#clip0)">
+            <g clipPath="url(#clip1)">
             <path d="M246.71 355.788C205.211 381.242 145.493 366.234 108.175 337.113C70.9119 308.162 56.0479 265.097 68.7178 227.585C81.3878 190.074 121.592 158.114 170.794 154.103C219.997 150.091 277.837 174.146 294.908 219.107C312.034 264.237 288.391 330.274 246.71 355.788Z" fill="#FFC054"/>
             </g>
             <path d="M56.6297 -39.9795C73.5377 -23.3908 87.2235 0.286575 85.2091 25.0703C83.1947 49.8541 65.3622 75.7447 43.1417 82.7691C21.0397 89.6752 -5.44956 77.5973 -29.2193 64.4497C-52.8711 51.3018 -73.8027 36.9662 -81.0138 16.3383C-88.3423 -4.40731 -81.9497 -31.5633 -66.1713 -48.0088C-50.3936 -64.3362 -25.2302 -69.9531 -2.70135 -68.0111C19.8275 -66.0692 39.7217 -56.5683 56.6297 -39.9795Z" fill="#FFC054"/>
@@ -94,11 +94,11 @@ const Score = () => {
           </Svg>
           <svg width="307" height="187" viewBox="0 0 307 187" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d)">
-            <rect x="4" width="299" height="179" rx="15" fill="#FFC054" fill-opacity="0.72" shape-rendering="crispEdges"/>
+            <rect x="4" width="299" height="179" rx="15" fill="#FFC054" fillOpacity="0.72" shapeRendering="crispEdges"/>
             </g>
             <defs>
-            <filter id="filter0_d" x="0" y="0" width="307" height="187" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <filter id="filter0_d" x="0" y="0" width="307" height="187" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity="0" result="BackgroundImageFix"/>
             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
             <feOffset dy="4"/>
             <feGaussianBlur stdDeviation="2"/>

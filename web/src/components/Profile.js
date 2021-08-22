@@ -79,7 +79,7 @@ const Profile = () => {
       </Card>
       <Card>
         <svg style={{marginRight: "30px"}} width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="29" height="29" rx="5" fill="#F94E4E" fill-opacity="0.17"/>
+          <rect width="29" height="29" rx="5" fill="#F94E4E" fillOpacity="0.17"/>
           <rect width="3" height="18" transform="matrix(1 0 0 -1 6 23)" fill="#F94E4E"/>
           <rect width="3" height="18" transform="matrix(1 0 0 -1 21 23)" fill="#F94E4E"/>
           <rect width="3" height="5" transform="matrix(0 -1 -1 0 11 24)" fill="#F94E4E"/>
