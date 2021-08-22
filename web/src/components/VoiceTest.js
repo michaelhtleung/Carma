@@ -77,8 +77,9 @@ const VoiceTest = (props) => {
     <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px'}}>
       <Message>Please record yourself saying the following:</Message>
       <TextToFollow>{text}</TextToFollow>
+      <audio src={blobURL} controls></audio>
       <StartRecording>{`${!startRecording? 'Start' : 'Stop'} Recording`}</StartRecording>
-      <Button onClick={!startRecording? onStart() : onEnd()}>{!startRecording? <Microphone /> : <Microphone props={{fill: 'black'}} />}</Button>
+      <Button onClick={!startRecording? onStart : onEnd}>{!startRecording? <Microphone /> : <Microphone props={{fill: 'black'}} />}</Button>
       <Button>Cancel</Button>
       <Button>Submit</Button>
     </div>
