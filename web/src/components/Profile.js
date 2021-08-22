@@ -5,23 +5,7 @@ import Header from "./Header";
 import intact from "../images/intact-logo.png";
 import more from "../images/more-btn.png";
 import avatar from "../images/tom.JPG";
-
-const Card = styled.div`
-  background: #FFFFFF;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  margin: 10px;
-  padding: 15px;
-  display: flex;
-  justify-content: start;
-  font-family: Roboto, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 130%;
-  letter-spacing: 0.02em;
-  color: #000000;
-`;
+import Card from "./Card";
 
 const Name = styled.span`
 font-family: Roboto;
@@ -38,6 +22,7 @@ border-radius: 5px;
 padding: 6px;
 background: ${props => props.background};
 margin-right: 30px;
+height: 17px;
 `;
 
 const Info = styled.div`
