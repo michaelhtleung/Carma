@@ -43,7 +43,7 @@ const TestLayout = () => {
       );
       break;
     case 2:
-      body = <BlueButton onClick={() => setStage(3)}>Next</BlueButton>;
+      body = (<PhotoTest onFinish={() => setStage(3)}/>);
       break;
     case 3:
       body = <Results isSuccessful={passed.current}/>;

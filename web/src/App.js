@@ -4,7 +4,6 @@ import Main from './components/Main';
 import Welcome from './components/Welcome';
 import Navbar from './components/Navbar';
 import TestLayout from './components/TestLayout';
-import PhotoDetector from './pages/PhotoDetector';
 
 function App() {
   return (
