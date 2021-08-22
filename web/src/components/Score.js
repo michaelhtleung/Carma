@@ -3,6 +3,9 @@ import Card from "./Card";
 import Container from "./Container"
 import Header from "./Header";
 import intact from "../images/intact-logo.png";
+import { useState } from "react";
+import { auth, db } from "../firebase";
+import moment from "moment";
 
 const Svg = styled.svg`
   position: absolute;
@@ -70,6 +73,13 @@ text-align: left;
 `;
 
 const Score = () => {
+  const [user, setUser] = useState({});
+  db.collection("users").where("uid", "==", auth.currentUser.uid).get()
+    .then(snapshot => {
+      setUser(snapshot.docs[0].data());
+    });
+
+  const fname = user.name && user.name.split(" ")[0];
   return (
     <Container style={{backgroundColor: "#F9FAFB"}}>
       <Header>carma</Header>
@@ -116,10 +126,10 @@ const Score = () => {
         </div>
       </Card>
       <Card>
-        <Badge background="#2DDAA5" fontSize="25px" textColor="#fff">180</Badge>
+        <Badge background="#2DDAA5" fontSize="25px" textColor="#fff">{user.points}</Badge>
         <Text>
           <span>Carma points earned</span>
-          <span>Great job Tom!</span>
+          <span>Great job {fname}!</span>
         </Text>
       </Card>
       <Card>
@@ -129,11 +139,11 @@ const Score = () => {
           </svg>
         </Badge>
         <Text>
-          <span>Congrats Tom, you've earned the Road Expert badge!</span>
+          <span>Congrats {fname}, you've earned the Road Expert badge!</span>
         </Text>
       </Card>
       <Card>
-        <Badge background="#FEE1E1" fontSize="30px" textColor="#F94E4E" bold>70</Badge>
+        <Badge background="#FEE1E1" fontSize="30px" textColor="#F94E4E" bold>{Math.round(moment.duration(moment(user.renewalDate).subtract(moment.now())).asDays())}</Badge>
         <Text>
           <span>Days left until policy renewal</span>
         </Text>

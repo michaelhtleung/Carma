@@ -4,8 +4,9 @@ import Container from "./Container";
 import Header from "./Header";
 import intact from "../images/intact-logo.png";
 import more from "../images/more-btn.png";
-import avatar from "../images/tom.JPG";
 import Card from "./Card";
+import { auth, db } from "../firebase";
+import { useState } from "react";
 
 const Name = styled.span`
 font-family: Roboto;
@@ -34,6 +35,11 @@ text-align: left;
 `;
 
 const Profile = () => {
+  const [user, setUser] = useState({});
+  db.collection("users").where("uid", "==", auth.currentUser.uid).get()
+    .then(snapshot => {
+      setUser(snapshot.docs[0].data());
+    });
   return (
     <Container style={{backgroundColor: "#F9FAFB"}}>
       <Header>carma</Header>
@@ -42,8 +48,8 @@ const Profile = () => {
           <img src={more} alt="more actions" style={{display: 'inline', position: "relative", float: "right", cursor: 'pointer'}}/>
         </div>
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <img src={avatar} alt="avatar" style={{marginBottom: "11px", borderRadius: "50%", height: "73px", width: "73px", objectFit: "cover"}}/>
-          <Name>Tom Zhu</Name>
+          <img src={user.profilePic} alt="avatar" style={{marginBottom: "11px", borderRadius: "50%", height: "73px", width: "73px", objectFit: "cover"}}/>
+          <Name>{user.name}</Name>
         </div>
       </Card>
       <Card>
@@ -53,7 +59,7 @@ const Profile = () => {
           </svg>
         </Icon>
         <Info>
-          <a style={{color: "#000"}} href="mailto:email@gmail.com">email@gmail.com</a>
+          <a style={{color: "#000"}} href="mailto:email@gmail.com">{auth.currentUser.email}</a>
         </Info>
       </Card>
       <Card>
@@ -63,8 +69,8 @@ const Profile = () => {
           </svg>
         </Icon>
         <Info>
-          <span>Silver 2018 Honda</span>
-          <span>BXT 593</span>
+          <span>{user.model && user.model[0].toUpperCase() + user.model.slice(1)}</span>
+          <span>{user.plate}</span>
         </Info>
       </Card>
       <Card>
@@ -74,7 +80,7 @@ const Profile = () => {
           </svg>
         </Icon>
         <Info>
-          43 Crescent Dr, Toronto, ON M3J 2P4
+          {user.address}
         </Info>
       </Card>
       <Card>
@@ -89,11 +95,11 @@ const Profile = () => {
         </svg>
         <Info>
           <span>Intact Policy Number:</span>
-          <span>4659 0394 9032 2300</span>
+          <span>{user.insuranceNo}</span>
         </Info>
       </Card>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Button style={{marginTop: '45px', marginBottom: '35px', fontSize: "18px", width: "284px"}}>Contact your Intact broker</Button>
+        <Button style={{marginTop: '37px', marginBottom: '35px', fontSize: "18px", width: "284px"}}>Contact your Intact broker</Button>
         <img src={intact} alt="intact logo"/>
       </div>
     </Container>
