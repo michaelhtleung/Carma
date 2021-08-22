@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../firebase";
 import styled from "styled-components";
 import AuthForm from "./AuthForm";
 import Button from "./ButtonOrange";
@@ -62,8 +63,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = () => {
+  const history = useHistory();
 
+  const onSubmit = () => {
+    auth.signInWithEmailAndPassword(email, password)
+      .then(val => {
+        history.push("/app");
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   return (

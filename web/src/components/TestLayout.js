@@ -8,6 +8,7 @@ import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
 import Results from "./Results";
+import { auth, db, firebase } from "../firebase";
 import PhotoTest from "./PhotoTest";
 
 const Quit = styled.span`
@@ -43,10 +44,16 @@ const TestLayout = () => {
       );
       break;
     case 2:
-      body = (<PhotoTest onFinish={() => setStage(3)}/>);
+      body = (<PhotoTest onFinish={() => {
+          if (passed.current) {
+            db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10) });
+          }
+          setStage(3);
+        }}/>);
       break;
     case 3:
       body = <Results isSuccessful={passed.current}/>;
+      
       break;
     default:
       break;

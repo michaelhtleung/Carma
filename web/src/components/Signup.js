@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import AuthForm from "./AuthForm";
 import Button from "./ButtonOrange";
+import faker from 'faker/locale/en_CA';
+import { auth, db } from "../firebase";
 
 const Input = styled.input`
 font-family: Roboto;
@@ -53,8 +55,29 @@ const Signup = () => {
   const [confirm, setConfirm] = useState("");
   const [intact, setIntact] = useState("");
 
+  const history = useHistory();
+
   const onSubmit = () => {
-    
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        db.collection("users").doc(userCredential.user.uid).set({
+          name,
+          email,
+          profilePic: faker.image.avatar(),
+          address: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
+          model: `${faker.vehicle.color()} ${faker.vehicle.manufacturer()} ${faker.vehicle.model()}`,
+          renewalDate: faker.date.future().toISOString(), 
+          points: 0,
+          plate: "BXT 593",
+          insuranceNo: intact,
+        }).then(() => {
+          history.push("/app");
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      
   };
 
   return (
