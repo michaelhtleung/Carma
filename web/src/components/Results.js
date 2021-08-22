@@ -86,7 +86,7 @@ const Results = ({ isSuccessful }) => {
               <circle cx="171" cy="171" r="134" fill="#F94E4E" fillOpacity="0.24"/>
               <circle cx="171" cy="171" r="86" fill="#F94E4E" fillOpacity="0.33"/>
               <circle cx="171.5" cy="171.5" r="54.5" fill="url(#paint0_linear)"/>
-              <g clip-path="url(#clip0)">
+              <g clipPath="url(#clip0)">
               <path d="M199 190.105L179.598 170.951L198.732 151.626L190.105 143L170.944 162.409L151.554 143.268L143 151.822L162.416 171.049L143.268 190.446L151.822 199L171.042 179.591L190.374 198.732L199 190.105Z" fill="white"/>
               </g>
               <defs>
