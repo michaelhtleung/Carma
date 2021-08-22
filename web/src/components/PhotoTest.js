@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Webcam from 'react-webcam';
 import Button from './Button';
 import indianAttrie from '../images/indian-attrie.png';
+import { ModelUtil } from './ModelUtil';
 
 const Message = styled.span`
   font-family: Roboto, sans-serif;
@@ -62,9 +63,10 @@ const PhotoTest = (props) => {
   }, [isReady, screenshot]);
 
   
-  const handleOnSubmit = () => {
+  const handleOnSubmit = async () => {
     setIsUpload(true);
-    onFinish();
+    const result = await ModelUtil(screenshot);
+    // onFinish();
   }
 
   const handleRetake = () => {
