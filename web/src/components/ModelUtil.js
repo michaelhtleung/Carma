@@ -15,7 +15,13 @@ const PREPROCESS_DIVISOR = tf.scalar(255 / 2);
         PREPROCESS_DIVISOR);
     console.log("input:")
     console.log(input.dataSync());
-    const output = model.execute(input);
+    let output = model.execute(input);
+    output = output.dataSync();
     console.log("output:")
-    console.log(output.dataSync());
+    console.log(output);
+    if (output[0] >= output[1]){
+      return "drunk";
+    } else {
+        return "sober";
+    }
 }

@@ -66,7 +66,7 @@ const PhotoTest = (props) => {
   const handleOnSubmit = async () => {
     setIsUpload(true);
     const result = await ModelUtil("screenshot");
-    onFinish();
+    onFinish(result);
   }
 
   const handleRetake = () => {
