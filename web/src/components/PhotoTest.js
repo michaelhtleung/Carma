@@ -31,7 +31,7 @@ const RetakePhoto = styled.div`
 
 const videoConstraints = {
   width: 332,
-  height: 424,
+  height: 332,
   facingMode: "user"
 };
 
@@ -48,7 +48,7 @@ const PhotoTest = (props) => {
 
   const capture = useCallback(
     () => {
-      const imageSrc = webcamRef.current.getScreenshot({width: 332, height: 424});
+      const imageSrc = webcamRef.current.getScreenshot({width: 224, height: 224});
       setScreenshot(imageSrc);
     },
     [webcamRef]
@@ -65,8 +65,8 @@ const PhotoTest = (props) => {
   
   const handleOnSubmit = async () => {
     setIsUpload(true);
-    const result = await ModelUtil(screenshot);
-    // onFinish();
+    const result = await ModelUtil("screenshot");
+    onFinish();
   }
 
   const handleRetake = () => {
@@ -77,7 +77,7 @@ const PhotoTest = (props) => {
     <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px'}}>
       <Webcam
         width={332}
-        height={424}
+        height={332}
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
         ref={webcamRef}
@@ -88,7 +88,7 @@ const PhotoTest = (props) => {
     </div>
   ) : (
     <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px'}}>
-      <img src={screenshot} />
+      <img id="screenshot" src={screenshot}/>
       <div id="submit-button" style={{padding: '30px'}}>
         <Button onClick={handleOnSubmit}>Submit</Button>
       </div>
