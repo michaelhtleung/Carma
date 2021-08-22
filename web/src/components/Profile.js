@@ -36,9 +36,9 @@ text-align: left;
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  db.collection("users").where("uid", "==", auth.currentUser.uid).get()
+  db.collection("users").doc(auth.currentUser.uid).get()
     .then(snapshot => {
-      setUser(snapshot.docs[0].data());
+      setUser(snapshot.data());
     });
   return (
     <Container style={{backgroundColor: "#F9FAFB"}}>

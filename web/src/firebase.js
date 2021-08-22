@@ -7,5 +7,6 @@ const db = app.firestore();
 
 export {
   auth,
-  db
+  db,
+  firebase,
 }
