@@ -51,7 +51,7 @@ const VoiceTest = (props) => {
   const [startRecording, setStartRecording] = useState(false);
   const [blobURL, setBlobURL] = useState('');
   const Mp3Recorder = useMemo(() => new MicRecorder({ bitRate: 128 }), []);
-
+  const storageRef = storage.ref();
   const handleOnReady = () => {
     setIsReady(true);
   }
@@ -69,7 +69,8 @@ const VoiceTest = (props) => {
       setStartRecording(false);
       const blobURL = URL.createObjectURL(blob);
       setBlobURL(blobURL);
-      storage.ref().child().put()
+      debugger;
+      storageRef.child('audio').put()
     }).catch((e) => {
       console.error(e);
     })
