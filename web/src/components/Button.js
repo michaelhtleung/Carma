@@ -7,8 +7,8 @@ const StyledButton = styled.button`
   line-height: 20px;
   font-family: 'Heebo', sans-serif;
   color: white;
-  width: 173px;
-  height: 49px;
+  min-width: 173px;
+  min-height: 49px;
   background: #4D5DDD;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.39);
   border-radius: 12px;
