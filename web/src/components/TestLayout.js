@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "./ButtonOrange";
-import BlueButton from "./Button";
 import Container from "./Container";
 import Header from "./Header";
 import Home from "./Home";
@@ -9,6 +8,7 @@ import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
 import Results from "./Results";
 import PhotoTest from "./PhotoTest";
+import VoiceTest from "./VoiceTest";
 
 const Quit = styled.span`
   font-family: Heebo, sans-serif;
@@ -24,7 +24,7 @@ const Quit = styled.span`
 `;
 
 const TestLayout = () => {
-  const totalStages = 3;
+  const totalStages = 4;
   const [stage, setStage] = useState(0);
 
   const passed = useRef(false);
@@ -46,6 +46,9 @@ const TestLayout = () => {
       body = (<PhotoTest onFinish={() => setStage(3)}/>);
       break;
     case 3:
+      body = (<VoiceTest onFinish={() => setStage(4)}/>);
+      break;
+    case 4:
       body = <Results isSuccessful={passed.current}/>;
       break;
     default:
@@ -60,7 +63,7 @@ const TestLayout = () => {
     <Container>
       <Header>carma</Header>
       <Quit 
-        style={{visibility: stage === 3 ? 'hidden' : 'visible'}}
+        style={{visibility: stage === 4 ? 'hidden' : 'visible'}}
         onClick={() => setStage(0)}
       >
         <span style={{cursor: 'pointer'}}>Quit</span>

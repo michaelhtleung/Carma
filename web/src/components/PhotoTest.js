@@ -86,7 +86,7 @@ const PhotoTest = (props) => {
     </div>
   ) : (
     <div style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px'}}>
-      <img src={screenshot} />
+      <img src={screenshot} alt="selfie taken from the test" />
       <div id="submit-button" style={{padding: '30px'}}>
         <Button onClick={handleOnSubmit}>Submit</Button>
       </div>
