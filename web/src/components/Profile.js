@@ -44,7 +44,7 @@ const Profile = () => {
     <Container style={{backgroundColor: "#F9FAFB"}}>
       <Header>carma</Header>
       <Card style={{display: "block"}}>
-        <div style={{display: 'flex', justifyContent: 'end'}}>
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
           <img src={more} alt="more actions" style={{display: 'inline', position: "relative", float: "right", cursor: 'pointer'}}/>
         </div>
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
