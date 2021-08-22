@@ -8,6 +8,7 @@ import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
 import Results from "./Results";
+import PhotoTest from "./PhotoTest";
 
 const Quit = styled.span`
   font-family: Heebo, sans-serif;
@@ -42,7 +43,7 @@ const TestLayout = () => {
       );
       break;
     case 2:
-      body = <BlueButton onClick={() => setStage(3)}>Next</BlueButton>;
+      body = (<PhotoTest onFinish={() => setStage(3)}/>);
       break;
     case 3:
       body = <Results isSuccessful={passed.current}/>;
