@@ -8,6 +8,7 @@ import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
 import Results from "./Results";
+import { auth, db, firebase } from "../firebase";
 
 const Quit = styled.span`
   font-family: Heebo, sans-serif;
@@ -42,10 +43,17 @@ const TestLayout = () => {
       );
       break;
     case 2:
-      body = <BlueButton onClick={() => setStage(3)}>Next</BlueButton>;
+      body = <BlueButton 
+        onClick={() => {
+          if (passed.current) {
+            db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10) });
+          }
+          setStage(3);
+        }}>Next</BlueButton>;
       break;
     case 3:
       body = <Results isSuccessful={passed.current}/>;
+      
       break;
     default:
       break;

@@ -72,14 +72,29 @@ color: #000000;
 text-align: left;
 `;
 
+const badges = {
+  0 : "Road Beginner",
+  10 : `Road Novice`,
+  20 : `Road Intermediate`,
+  30 : `Road Expert`, 
+};
+
 const Score = () => {
   const [user, setUser] = useState({});
-  db.collection("users").where("uid", "==", auth.currentUser.uid).get()
+  db.collection("users").doc(auth.currentUser.uid).get()
     .then(snapshot => {
-      setUser(snapshot.docs[0].data());
+      setUser(snapshot.data());
     });
 
   const fname = user.name && user.name.split(" ")[0];
+
+  const thresholds = {
+    0 : "Start a test!",
+    10 : `Good job ${fname}!`,
+    20 : `Great job ${fname}!,`,
+    30 : `Amazing job ${fname}!`, 
+  };
+
   return (
     <Container style={{backgroundColor: "#F9FAFB"}}>
       <Header>carma</Header>
@@ -129,7 +144,7 @@ const Score = () => {
         <Badge background="#2DDAA5" fontSize="25px" textColor="#fff">{user.points}</Badge>
         <Text>
           <span>Carma points earned</span>
-          <span>Great job {fname}!</span>
+          <span>{thresholds[user.points] || `Incredible job ${fname}!`}</span>
         </Text>
       </Card>
       <Card>
@@ -139,7 +154,7 @@ const Score = () => {
           </svg>
         </Badge>
         <Text>
-          <span>Congrats {fname}, you've earned the Road Expert badge!</span>
+          <span>Congrats {fname}, you've earned the {badges[user.points] || "Road Master"} badge!</span>
         </Text>
       </Card>
       <Card>

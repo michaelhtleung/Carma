@@ -60,9 +60,8 @@ const Signup = () => {
   const onSubmit = () => {
     auth.createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
-        db.collection("users").add({
+        db.collection("users").doc(userCredential.user.uid).set({
           name,
-          uid: userCredential.user.uid,
           email,
           profilePic: faker.image.avatar(),
           address: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
