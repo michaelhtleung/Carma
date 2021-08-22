@@ -41,6 +41,7 @@ const ReactionTest = ({ onComplete, limit, isFinal }) => {
   const [size, setSize] = useState({});
 
   const timeout = useRef(null);
+  const waitToUp = useRef(null);
   const box = useRef(null);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ const ReactionTest = ({ onComplete, limit, isFinal }) => {
 
   const handleComplete = val => {
     clearTimeout(timeout.current);
+    clearTimeout(waitToUp.current);
     onComplete(val);
     if (!isFinal) {
       setIsUp(false);
@@ -65,7 +67,7 @@ const ReactionTest = ({ onComplete, limit, isFinal }) => {
 
   const handleReady = () => {
     setIsReady(true);
-    setTimeout(() => {
+    waitToUp.current = setTimeout(() => {
       setIsUp(true);
       setStart(Date.now());
       timeout.current = setTimeout(() => {
@@ -75,7 +77,7 @@ const ReactionTest = ({ onComplete, limit, isFinal }) => {
   }
 
   return isReady ? (
-    <GameContainer ref={box} onMouseDown={!isUp ? () => handleComplete(limit) : undefined}>
+    <GameContainer ref={box}>
       {isUp && (
         <Dot
           position={{

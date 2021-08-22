@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
+import Button from "./ButtonOrange";
+import BlueButton from "./Button";
+import Container from "./Container";
+import Header from "./Header";
+import Home from "./Home";
 import ProgressBar from "./ProgressBar";
 import ReactionSuite from "./ReactionSuite";
-
-const Header = styled.span`
-  font-family: Heebo, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 35px;
-  color: #000000;
-`;
+import Results from "./Results";
+import PhotoTest from "./PhotoTest";
 
 const Quit = styled.span`
   font-family: Heebo, sans-serif;
@@ -25,37 +23,48 @@ const Quit = styled.span`
   display: flex;
 `;
 
-const Container = styled.div`
-  padding: 22px;
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-`;
-
 const TestLayout = () => {
   const totalStages = 3;
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(0);
+
+  const passed = useRef(false);
 
   let body;
   switch (stage) {
     case 1:
-      body = <ReactionSuite numTests={3} onFinish={() => setStage(2)}/>;
+      body = (
+        <ReactionSuite 
+          numTests={2} 
+          onFinish={tot => {
+            passed.current = tot < 6000;
+            setStage(2);
+          }}
+        />
+      );
       break;
     case 2:
-      // set body to picture test
+      body = (<PhotoTest onFinish={() => setStage(3)}/>);
       break;
     case 3:
-      // set body to finishing screen
+      body = <Results isSuccessful={passed.current}/>;
       break;
     default:
       break;
   }
 
-  return (
+  return stage === 0 ? (
+    <Home>
+      <Button style={{marginTop: "48px", width: "287px"}} onClick={() => setStage(1)}>Start Sobriety Test</Button>
+    </Home>
+  ) : (
     <Container>
-      <Header>Insert Name</Header>
-      <Quit style={{visibility: stage === 3 ? 'hidden' : 'visible'}}><span style={{cursor: 'pointer'}}>Quit</span></Quit>
+      <Header>carma</Header>
+      <Quit 
+        style={{visibility: stage === 3 ? 'hidden' : 'visible'}}
+        onClick={() => setStage(0)}
+      >
+        <span style={{cursor: 'pointer'}}>Quit</span>
+      </Quit>
       <ProgressBar currentStage={stage} totalStages={totalStages}/>
       {body}
     </Container>
