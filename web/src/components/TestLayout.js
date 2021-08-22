@@ -29,6 +29,7 @@ const TestLayout = () => {
   const [stage, setStage] = useState(0);
 
   const passed = useRef(false);
+  const passed2 = useRef(false);
 
   let body;
   switch (stage) {
@@ -44,15 +45,18 @@ const TestLayout = () => {
       );
       break;
     case 2:
-      body = (<PhotoTest onFinish={() => {
-          if (passed.current) {
+      body = (<PhotoTest onFinish={(result) => {
+          console.log("result:");
+          console.log(result);
+          passed2.current = result === "sober" ? true: false;
+          if (passed.current && passed2.current) {
             db.collection("users").doc(auth.currentUser.uid).update({ points: firebase.firestore.FieldValue.increment(10) });
           }
           setStage(3);
         }}/>);
       break;
     case 3:
-      body = <Results isSuccessful={passed.current}/>;
+      body = <Results isSuccessful={passed.current && passed2.current}/>;
       
       break;
     default:
