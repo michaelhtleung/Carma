@@ -5,6 +5,7 @@ import recruitment from '../images/recruitment-1.png';
 import MicRecorder from 'mic-recorder-to-mp3';
 import Microphone from '../images/Microphone';
 import Recording from '../images/Recording.png';
+import { storage } from '../firebase';
 
 const Message = styled.span`
   font-family: Roboto, sans-serif;
@@ -68,6 +69,7 @@ const VoiceTest = (props) => {
       setStartRecording(false);
       const blobURL = URL.createObjectURL(blob);
       setBlobURL(blobURL);
+      storage.ref().child().put()
     }).catch((e) => {
       console.error(e);
     })
