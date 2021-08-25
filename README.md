@@ -32,6 +32,6 @@ We learned that communication as a team was vital for ensuring that we completed
 Moving forward, our team hopes to add a short multiple choice quiz section and an audio recording section that detects intoxication via the user’s voice to the sobriety test to more accurately determine if a driver is in a safe condition to be on the road. Additionally, we want to add the ability to detect when a user is about to drive or finished a drive to the app so that Carma can better prompt and remind users to complete a sobriety test. Additionally, we want to add the ability to detect when a user is about to drive or finished a drive to the app so that Carma can better prompt and remind users to complete a sobriety test. Finally, we would like to eventually expand beyond Intact and make Carma a tool that can be used with a number of large insurance companies to help create a larger impact on keeping the roads safe.
 
 ## Previous Work Used
-Notebooks to prepare data for training borrowed from here: https://github.com/ebenezer-isaac/intoxicated-face-identification
+Notebooks to collect training data were modified from here: https://github.com/ebenezer-isaac/intoxicated-face-identification
 
 All other code and work in this project is our original work.
